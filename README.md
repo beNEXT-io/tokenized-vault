@@ -1,39 +1,28 @@
-# <h1 align="center"> Forge Template </h1>
+# Tokenized Vault
 
-**Template repository for getting started quickly with Foundry projects**
-
-![Github Actions](https://github.com/foundry-rs/forge-template/workflows/CI/badge.svg)
-
-## Getting Started
-
-Click "Use this template" on [GitHub](https://github.com/foundry-rs/forge-template) to create a new repository with this repo as the initial state.
-
-Or, if your repo already exists, run:
 ```sh
-forge init
 forge build
 forge test
+forge create --rpc-url <rpc_url> \
+    --constructor-args "<asset_address>" "<name>" "<symbol>" \
+    --private-key <your_private_key> \
+    --etherscan-api-key <your_etherscan_api_key> \
+    --verify \
+    src/Contract.sol:TokenizedVault
 ```
 
-## Writing your first test
+ETH Mainnet (beNEXT) - https://mainnet.infura.io/v3/f8feeb97f68642c2a1469058c4f367ec
 
-All you need is to `import forge-std/Test.sol` and then inherit it from your test contract. Forge-std's Test contract comes with a pre-instatiated [cheatcodes environment](https://book.getfoundry.sh/cheatcodes/), the `vm`. It also has support for [ds-test](https://book.getfoundry.sh/reference/ds-test.html)-style logs and assertions. Finally, it supports Hardhat's [console.log](https://github.com/brockelmore/forge-std/blob/master/src/console.sol). The logging functionalities require `-vvvv`.
+ETH Testnet (beNEXT) - https://goerli.infura.io/v3/f8feeb97f68642c2a1469058c4f367ec
 
-```solidity
-pragma solidity 0.8.10;
+example:
 
-import "forge-std/Test.sol";
-
-contract ContractTest is Test {
-    function testExample() public {
-        vm.roll(100);
-        console.log(1);
-        emit log("hi");
-        assertTrue(true);
-    }
-}
+```sh
+forge create --rpc-url https://goerli.infura.io/v3/f8feeb97f68642c2a1469058c4f367ec \
+    --constructor-args "0x07865c6e87b9f70255377e024ace6630c1eaa37f" "TokenVault" "TVLT" \
+    --private-key xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \
+    --etherscan-api-key QDA5R13YCMUMDASVXN28RJRAR152ARHSR9 \
+    --verify \
+    src/Contract.sol:TokenizedVault
 ```
 
-## Development
-
-This project uses [Foundry](https://getfoundry.sh). See the [book](https://book.getfoundry.sh/getting-started/installation.html) for instructions on how to install and use Foundry.
