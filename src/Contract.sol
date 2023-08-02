@@ -36,11 +36,11 @@ contract TokenizedVault is ERC4626, Ownable, IAccessControl {
         _symbol = symbol_;
         _decimals = ERC20(address(asset_)).decimals();
 
-    // Grant roles to msg.sender
-    grantRole(DEPOSITOR_ROLE, msg.sender);
-    grantRole(MINTER_ROLE, msg.sender);
-    grantRole(WITHDRAWER_ROLE, msg.sender);
-    grantRole(REDEEMER_ROLE, msg.sender);
+        // Grant roles to msg.sender
+        grantRole(DEPOSITOR_ROLE, msg.sender);
+        grantRole(MINTER_ROLE, msg.sender);
+        grantRole(WITHDRAWER_ROLE, msg.sender);
+        grantRole(REDEEMER_ROLE, msg.sender);
     }
 
     /**
