@@ -93,7 +93,7 @@ contract TokenizedVault is ERC4626, Ownable, IAccessControl {
     function deposit(
         uint256 amount,
         address receiver
-    ) public override hasRole(DEPOSITOR_ROLE, msg.sender) {
+    ) public override onlyRole(DEPOSITOR_ROLE, msg.sender) {
         super.deposit(amount, receiver);
     }
 
@@ -104,8 +104,8 @@ contract TokenizedVault is ERC4626, Ownable, IAccessControl {
     function mint(
         uint256 shares,
         address receiver
-    ) public override hasRole(MINTER_ROLE, msg.sender) {
-        super.deposit(amount, receiver);
+    ) public override onlyRole(MINTER_ROLE, msg.sender) {
+        super.deposit(shares, receiver);
     }
 
     /**
@@ -115,7 +115,7 @@ contract TokenizedVault is ERC4626, Ownable, IAccessControl {
     function withdraw(
         uint256 amount,
         address receiver
-    ) public override hasRole(WITHDRAWER_ROLE, msg.sender) {
+    ) public override onlyRole(WITHDRAWER_ROLE, msg.sender) {
         super.withdraw(amount, receiver);
     }
 
@@ -126,7 +126,7 @@ contract TokenizedVault is ERC4626, Ownable, IAccessControl {
     function redeem(
         uint256 shares,
         address receiver
-    ) public override hasRole(REDEEMER_ROLE, msg.sender) {
+    ) public override onlyRole(REDEEMER_ROLE, msg.sender) {
         super.redeem(shares, receiver);
     }
 
