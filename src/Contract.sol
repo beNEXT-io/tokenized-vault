@@ -36,11 +36,11 @@ contract TokenizedVault is ERC4626, Ownable, IAccessControl {
         _symbol = symbol_;
         _decimals = ERC20(address(asset_)).decimals();
 
-        // Grant roles to msg.sender
-        _setupRole(DEPOSITOR_ROLE, msg.sender);
-        _setupRole(MINTER_ROLE, msg.sender);
-        _setupRole(WITHDRAWER_ROLE, msg.sender);
-        _setupRole(REDEEMER_ROLE, msg.sender);
+    // Grant roles to msg.sender
+    grantRole(DEPOSITOR_ROLE, msg.sender);
+    grantRole(MINTER_ROLE, msg.sender);
+    grantRole(WITHDRAWER_ROLE, msg.sender);
+    grantRole(REDEEMER_ROLE, msg.sender);
     }
 
     /**
@@ -90,10 +90,11 @@ contract TokenizedVault is ERC4626, Ownable, IAccessControl {
      * @dev Deposits `amount` of the underlying asset into the contract.
      * Only accounts with the DEPOSITOR_ROLE can call this function.
      */
-    function deposit(
-        uint256 amount,
-        address receiver
-    ) public override onlyRole(DEPOSITOR_ROLE, msg.sender) {
+    function deposit(uint256 amount, address receiver) public override {
+        require(
+            hasRole(DEPOSITOR_ROLE, msg.sender),
+            "Caller is not a depositor"
+        );
         super.deposit(amount, receiver);
     }
 
@@ -101,21 +102,20 @@ contract TokenizedVault is ERC4626, Ownable, IAccessControl {
      * @dev Mints `shares` of the underlying asset into the contract.
      * Only accounts with the MINTER_ROLE can call this function.
      */
-    function mint(
-        uint256 shares,
-        address receiver
-    ) public override onlyRole(MINTER_ROLE, msg.sender) {
-        super.deposit(shares, receiver);
+    function mint(uint256 shares, address receiver) public override {
+        require(hasRole(MINTER_ROLE, msg.sender), "Caller is not a minter");
+        super.mint(shares, receiver);
     }
 
     /**
      * @dev Withdraws `amount` of the underlying asset from the contract.
      * Only accounts with the WITHDRAWER_ROLE can call this function.
      */
-    function withdraw(
-        uint256 amount,
-        address receiver
-    ) public override onlyRole(WITHDRAWER_ROLE, msg.sender) {
+    function withdraw(uint256 amount, address receiver) public override {
+        require(
+            hasRole(WITHDRAWER_ROLE, msg.sender),
+            "Caller is not a withdrawer"
+        );
         super.withdraw(amount, receiver);
     }
 
@@ -123,11 +123,8 @@ contract TokenizedVault is ERC4626, Ownable, IAccessControl {
      * @dev Redeems `shares` of the underlying asset from the contract.
      * Only accounts with the REDEEMER_ROLE can call this function.
      */
-    function redeem(
-        uint256 shares,
-        address receiver
-    ) public override onlyRole(REDEEMER_ROLE, msg.sender) {
+    function redeem(uint256 shares, address receiver) public override {
+        require(hasRole(REDEEMER_ROLE, msg.sender), "Caller is not a redeemer");
         super.redeem(shares, receiver);
     }
-
 }
