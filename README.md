@@ -1,8 +1,5 @@
 # Tokenized Vault
 
-ETH Mainnet (beNEXT) - https://mainnet.infura.io/v3/f8feeb97f68642c2a1469058c4f367ec  
-ETH Testnet (beNEXT) - https://goerli.infura.io/v3/f8feeb97f68642c2a1469058c4f367ec
-
 Tokenized Vault (TVLT) - https://goerli.etherscan.io/address/0x0cc77e7c4432490cf5cecd1f777665035eb4bb3f 
 
 ```sh
